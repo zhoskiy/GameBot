@@ -1,4 +1,4 @@
-package com.example.gamebot.command;
+package com.example.gamebot.controller.command;
 
 import lombok.SneakyThrows;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;

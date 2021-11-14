@@ -1,21 +1,15 @@
 package com.example.gamebot.controller;
 
-import com.example.gamebot.command.PopularGamesCommand;
-import com.example.gamebot.command.StartCommand;
-import lombok.RequiredArgsConstructor;
+import com.example.gamebot.controller.command.PopularGamesCommand;
+import com.example.gamebot.controller.command.StartCommand;
+import com.example.gamebot.service.GameService;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.bots.AbsSender;
 
 import java.util.List;
 
@@ -24,11 +18,11 @@ public class Bot extends TelegramLongPollingCommandBot {
     private final String BOT_NAME = "GameHelper_BSUIR_bot";
     private final String BOT_TOKEN = "2113068927:AAGkWpkd2Vyl7S-Ms3lHk1sMFzPnh03nuBY";
 
-   // private final ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+    // private final ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
 
     public Bot() {
         super();
-       registerCommands();
+        registerCommands();
     }
 
     @Override
@@ -44,7 +38,11 @@ public class Bot extends TelegramLongPollingCommandBot {
         String userName = msg.getFrom().getUserName();
         System.out.println(msg.getText());
         System.out.println(userName);
+        CallbackQuery callbackQuery = new CallbackQuery();
+        callbackQuery.setData("/popular");
         switch (msg.getText()) {
+            case "pop" ->  update.setCallbackQuery(callbackQuery);
+            case "Популярные игры" -> new GameService().findTopGames("").forEach(game -> sendMessage(chatId, game.toString()));
             default -> sendMessage(chatId, String.format("Да, да, я тебя слышу %s, но пока я не знаю, как ответить)", userName));
         }
     }

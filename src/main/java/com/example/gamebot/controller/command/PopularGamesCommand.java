@@ -1,4 +1,4 @@
-package com.example.gamebot.command;
+package com.example.gamebot.controller.command;
 
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;

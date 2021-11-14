@@ -1,13 +1,16 @@
-package com.example.gamebot.command;
+package com.example.gamebot.controller.command;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
 import java.util.Collections;
+import java.util.List;
 
 public class StartCommand extends ServiceBotCommand {
     private final ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
@@ -41,8 +44,9 @@ public class StartCommand extends ServiceBotCommand {
         replyKeyboardMarkup.setOneTimeKeyboard(false);
 
         KeyboardRow keyboardRow = new KeyboardRow();
-        keyboardRow.add("Популярные игры");
+        keyboardRow.add("Популярные_игры");
         keyboardRow.add("Помощь");
+
 
         replyKeyboardMarkup.setKeyboard(Collections.singletonList(keyboardRow));
     }
